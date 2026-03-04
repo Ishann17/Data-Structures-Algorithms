@@ -24,8 +24,7 @@ public class SquareAndSortArray {
                 index--;
                 i++;
             }
-           /* leftSquare = 0;
-            rightSquare = 0;*/
+
         }
         return result;
     }
