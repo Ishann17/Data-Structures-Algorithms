@@ -6,6 +6,7 @@ public class SquareAndSortArray {
 
     static int[] squareOfSortedArray(int [] nums){
 
+        //In-place modification will not work because we will lose the original values therefore use a new array to store the squares
         int[] result = new int[nums.length];
         int i=0;
         int j= nums.length-1;

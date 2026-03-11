@@ -1,48 +1,59 @@
 package com.url;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Revision {
 
-    static int[] mergeTwoSortedArrays(int[] nums1, int m, int[] nums2, int n){
+    static List<List<Integer>> threeSum(int[] a){
 
-        int i = m-1; // all possible elements to be merged in array 1
-        int j= n-1; //  all possible elements to be merged in array 2
-        int k = m+n-1; // total length of array 1 i.e. m+n-1
+        Arrays.sort(a);
+        int target = 0;
 
-        //assuming both have some no. of elements
-        while(i>=0 && j>=0){
+        List<List<Integer>> triplets = new ArrayList<>();
 
-            if(nums1[i] >= nums2[j]){
-                nums1[k] = nums1[i];
-                k--;
-                i--;
-            }else{
-                nums1[k] = nums2[j];
-                k--;
-                j--;
+        for(int i=0; i<a.length-2; i++){
+
+            //handle Duplicates
+            if(i > 0 && a[i] == a[i-1]){
+                continue;
+            }
+
+            int left = i+1;
+            int right = a.length-1;
+
+            while(left<right){
+                int sum = a[i] + a[left] + a[right];
+                if(sum == target){
+                   triplets.add( List.of(a[i], a[left], a[right]));
+
+                   left++;
+                   right--;
+
+                   while(left<right && a[left] == a[left-1]){
+                       left++;
+                   }
+                    while(left<right && a[right] == a[right+1]){
+                        right--;
+                    }
+
+                }else if (sum > target){
+                    right--;
+                }else {
+                    left++;
+                }
             }
 
         }
-        while(j >= 0){
-            nums1[k] = nums2[j];
-            k--;
-            j--;
-        }
-
-        return nums1;
+       return triplets;
     }
 
 
 
 
     public static void main(String[] args) {
-        List<Integer> nums = List.of(1,0,7,8,0,9,11,0,0,2,3,27,19,45,0,99,0,0);
-        List<Integer> list = Stream.concat(nums.stream().filter(e -> e != 0), nums.stream().filter(e -> e == 0)).toList();
-        System.out.println(list);
+       int[] arr = {-1, 0, 1, 2, -1, -4};
+        System.out.println(threeSum(arr));
     }
 }
