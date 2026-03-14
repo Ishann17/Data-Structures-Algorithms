@@ -6,54 +6,31 @@ import java.util.List;
 
 public class Revision {
 
-    static List<List<Integer>> threeSum(int[] a){
+    static int minLengthSum(int[] a, int k){
 
-        Arrays.sort(a);
-        int target = 0;
+        int low=0, minLen = Integer.MAX_VALUE, sum=0;
 
-        List<List<Integer>> triplets = new ArrayList<>();
+        for(int high=0; high<a.length; high++){
 
-        for(int i=0; i<a.length-2; i++){
+             sum += a[high];
 
-            //handle Duplicates
-            if(i > 0 && a[i] == a[i-1]){
-                continue;
-            }
-
-            int left = i+1;
-            int right = a.length-1;
-
-            while(left<right){
-                int sum = a[i] + a[left] + a[right];
-                if(sum == target){
-                   triplets.add( List.of(a[i], a[left], a[right]));
-
-                   left++;
-                   right--;
-
-                   while(left<right && a[left] == a[left-1]){
-                       left++;
-                   }
-                    while(left<right && a[right] == a[right+1]){
-                        right--;
-                    }
-
-                }else if (sum > target){
-                    right--;
-                }else {
-                    left++;
-                }
-            }
-
+             while(sum >= k){
+                 int len = high-low+1;
+                 minLen = Math.min(minLen, len);
+                 sum -= a[low];
+                 low++;
+             }
         }
-       return triplets;
+
+        return minLen == Integer.MAX_VALUE ? 0 : minLen;
     }
 
 
 
 
     public static void main(String[] args) {
-       int[] arr = {-1, 0, 1, 2, -1, -4};
-        System.out.println(threeSum(arr));
+       int[] arr = {};
+       int target = 7;
+        System.out.println(minLengthSum(arr, target));
     }
 }
