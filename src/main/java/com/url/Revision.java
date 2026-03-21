@@ -1,36 +1,41 @@
 package com.url;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Revision {
 
-    static int minLengthSum(int[] a, int k){
+    public static void sort012(int[] arr) {
 
-        int low=0, minLen = Integer.MAX_VALUE, sum=0;
+        int low=0, mid=0, high=arr.length-1;
 
-        for(int high=0; high<a.length; high++){
+        while(mid <= high){
 
-             sum += a[high];
-
-             while(sum >= k){
-                 int len = high-low+1;
-                 minLen = Math.min(minLen, len);
-                 sum -= a[low];
-                 low++;
-             }
+            //if mid is 1 we will not do anything just move on
+            if(arr[mid]==1){
+                mid++;
+            } else if (arr[mid]==0) {
+                //we will swap with low, low is responsible for 0s
+                int swap = arr[mid];
+                arr[mid] = arr[low];
+                arr[low] = swap;
+                low++;
+                mid++;
+            }else{
+                //when mid is 2 we will swap with high but we dont know what high will send us so we can simply move high keep mid as it is
+                int swap = arr[mid];
+                arr[mid] = arr[high];
+                arr[high] = swap;
+                high--;
+            }
         }
-
-        return minLen == Integer.MAX_VALUE ? 0 : minLen;
+        System.out.println(Arrays.toString(arr));
     }
 
 
-
-
     public static void main(String[] args) {
-       int[] arr = {};
-       int target = 7;
-        System.out.println(minLengthSum(arr, target));
+      int [] a = {0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1};
+        sort012(a);
+
+
     }
 }
