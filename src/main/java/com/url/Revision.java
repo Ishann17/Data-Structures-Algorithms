@@ -4,38 +4,34 @@ import java.util.Arrays;
 
 public class Revision {
 
-    public static void sort012(int[] arr) {
+    public static boolean isPalindrome(String s) {
+        s = s.toLowerCase();
+        int l=0, r=s.length()-1;
 
-        int low=0, mid=0, high=arr.length-1;
+        while(l < r){
 
-        while(mid <= high){
-
-            //if mid is 1 we will not do anything just move on
-            if(arr[mid]==1){
-                mid++;
-            } else if (arr[mid]==0) {
-                //we will swap with low, low is responsible for 0s
-                int swap = arr[mid];
-                arr[mid] = arr[low];
-                arr[low] = swap;
-                low++;
-                mid++;
-            }else{
-                //when mid is 2 we will swap with high but we dont know what high will send us so we can simply move high keep mid as it is
-                int swap = arr[mid];
-                arr[mid] = arr[high];
-                arr[high] = swap;
-                high--;
+            while(l<r && !Character.isLetterOrDigit(s.charAt(l))){
+                l++;
             }
+
+            while(l<r && !Character.isLetterOrDigit(s.charAt(r))){
+                r--;
+            }
+
+            if(s.charAt(l) != s.charAt(r)){
+                return false;
+            }
+            l++;
+            r--;
+
         }
-        System.out.println(Arrays.toString(arr));
+
+        return true;
     }
 
 
     public static void main(String[] args) {
-      int [] a = {0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1};
-        sort012(a);
-
-
+        String s = " ";
+        System.out.println(isPalindrome(s));
     }
 }
